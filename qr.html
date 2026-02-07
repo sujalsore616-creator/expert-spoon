@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Scan Me 💖</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffdbe9;
+            font-family: 'Comic Sans MS', cursive;
+            overflow: hidden;
+        }
+
+        .box {
+            background: #fff0f6;
+            padding: 30px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(255, 105, 180, .4);
+            animation: pop .6s;
+        }
+
+        @keyframes pop {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        h2,
+        p {
+            color: #d6336c;
+        }
+
+        .qr {
+            margin-top: 15px;
+            border-radius: 20px;
+        }
+
+        .heart {
+            position: fixed;
+            top: -10px;
+            font-size: 20px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h2>Scan Me 💖</h2>
+        <p>Open your surprise 🎁</p>
+
+        <img class="qr"
+            src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://sujalsore08.github.io/valentine/"
+            alt="QR">
+
+        <p>Scan karo 🫶🏻</p>
+    </div>
+
+    <script>
+        let emojis = ["💖", "💞", "🌹", "✨", "🫶🏻", "❤️"];
+        for (let i = 0; i < 35; i++) {
+            let e = document.createElement("div");
+            e.className = "heart";
+            e.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            e.style.left = Math.random() * 100 + "vw";
+            e.style.animationDuration = (Math.random() * 3 + 3) + "s";
+            document.body.appendChild(e);
+        }
+    </script>
+
+</body>
+
+</html>

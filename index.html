@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine 💖</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      background: #ffdbe9;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .screen {
+      display: none;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .active {
+      display: flex;
+    }
+
+    .box {
+      background: #fff0f6;
+      padding: 30px;
+      border-radius: 30px;
+      max-width: 450px;
+      box-shadow: 0 0 25px rgba(255, 105, 180, .4);
+      animation: pop .6s;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(0);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    h2,
+    h3,
+    p {
+      margin-bottom: 15px;
+      color: #d6336c;
+    }
+
+    button {
+      background: #ff9fc2;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 30px;
+      font-size: 15px;
+      cursor: pointer;
+      margin: 6px;
+      transition: .3s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    input {
+      padding: 12px 20px;
+      border-radius: 30px;
+      border: 2px solid #ff9fc2;
+      outline: none;
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .pass-btn {
+      background: linear-gradient(135deg, #ff9fc2, #ff6fae);
+      color: white;
+      font-size: 18px;
+      padding: 14px 35px;
+      border-radius: 40px;
+      animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .heart {
+      position: fixed;
+      top: -10px;
+      font-size: 20px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+      }
+    }
+
+    .qr {
+      margin: 15px 0;
+      border-radius: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <script>
+    let emojis = ["💖", "💞", "🌹", "✨", "🫶🏻", "❤️"];
+    for (let i = 0; i < 35; i++) {
+      let e = document.createElement("div");
+      e.className = "heart";
+      e.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+      e.style.left = Math.random() * 100 + "vw";
+      e.style.animationDuration = (Math.random() * 3 + 3) + "s";
+      document.body.appendChild(e);
+    }
+  </script>
+
+  <!-- PASSWORD SCREEN -->
+  <div id="s0" class="screen active">
+    <div class="box">
+      <div style="font-size:45px;">🔒💌</div>
+      <h2>Private Access 🫶🏻</h2>
+      <p>Enter the secret word</p>
+
+      <!-- ✅ HINT FIXED HERE -->
+      <input type="password" id="pass" placeholder="Enter password 💖">
+
+      <button class="pass-btn" onclick="checkPass()">Enter 💖</button>
+      <p id="msg"></p>
+    </div>
+  </div>
+
+  <!-- QUESTION -->
+  <div id="s1" class="screen">
+    <div class="box">
+      <h2>Hey there 💕</h2>
+      <h3>Will you be my Valentine?</h3>
+      <button onclick="yes()">YES OF COURSE</button>
+      <button onclick="no()">NO THANKS</button>
+    </div>
+  </div>
+
+  <!-- YES -->
+  <div id="s2" class="screen">
+    <div class="box">
+      <h2>Yay, you said yes! 😭💖</h2>
+      <p>Now let’s celebrate our Valentine Week 🫶🏻</p>
+
+      <button onclick="day(1)">🌹 Rose Day</button>
+      <button onclick="day(2)">💍 Propose Day</button>
+      <button onclick="day(3)">🍫 Chocolate Day</button>
+      <button onclick="day(4)">🧸 Teddy Day</button>
+      <button onclick="day(5)">🤝 Promise Day</button>
+      <button onclick="day(6)">🤗 Hug Day</button>
+      <button onclick="day(7)">😘 Kiss Day</button>
+      <button onclick="day(8)">❤️ Valentine’s Day</button>
+    </div>
+  </div>
+
+  <!-- DAY MESSAGE -->
+  <div id="s3" class="screen">
+    <div class="box" id="shayariBox"></div>
+    <button onclick="back()">⬅ Back</button>
+  </div>
+
+  <!-- NO -->
+  <div id="s4" class="screen">
+    <div class="box">
+      <h2>💔</h2>
+      <p>Try again please :(</p>
+      <button onclick="restart()">Try Again</button>
+    </div>
+  </div>
+
+  <script>
+    function checkPass() {
+      let p = document.getElementById("pass").value.trim();
+      if (p === "S Paglu") {
+        s0.classList.remove("active");
+        s1.classList.add("active");
+      } else {
+        msg.innerHTML = "Wrong password 😜 try again";
+      }
+    }
+
+    function yes() {
+      s1.classList.remove("active");
+      s2.classList.add("active");
+    }
+
+    function no() {
+      s1.classList.remove("active");
+      s4.classList.add("active");
+    }
+
+    function day(n) {
+      s2.classList.remove("active");
+      s3.classList.add("active");
+
+      let qr = `
+    <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://youtu.be/XvUSsh3gdO4?si=kMR2vMvwyLghJGq-" alt="QR">
+    <p>Scan this QR 🎧💖</p>`;
+
+      if (n == 1) shayariBox.innerHTML = "<h2>🌹 Rose Day</h2><p>Ye rose sirf phool nahi,<br>mere dil ka paigaam hai ❤️</p>";
+      if (n == 2) shayariBox.innerHTML = "<h2>💍 Propose Day</h2><p>Kya tum zindagi bhar mera saath dogi? 🫶🏻</p>";
+      if (n == 3) shayariBox.innerHTML = "<h2>🍫 Chocolate Day</h2><p>Tum ho to zindagi meethi lagti hai ❤️</p>";
+      if (n == 4) shayariBox.innerHTML = "<h2>🧸 Teddy Day</h2><p>Is teddy me meri care chhupi hai ❤️</p>";
+      if (n == 5) shayariBox.innerHTML = "<h2>🤝 Promise Day</h2><p>Har haal me saath nibhaunga ❤️</p>";
+      if (n == 6) shayariBox.innerHTML = "<h2>🤗 Hug Day</h2><p> Godiiii leloooo ❤️</p>";
+      if (n == 7) shayariBox.innerHTML = "<h2>😘 Kiss Day</h2><p> Doc ne bola hai vitamin K ki kami hai, <br>where is my kissi? ❤️</p>";
+      if (n == 8) shayariBox.innerHTML = "<h2>❤️ Valentine’s Day</h2><p>To the love of my life, you make my life so meaningful and I am so lucky to have you as my valentine this year. I love you wholeheartedly and I can't wait to continue loving you for the rest of my life 🫶🏻❤️<br>Happy Valentine’s Day Snorlax ji ilysm.. 🫶🏻❤️</p>" + qr;
+    }
+
+    function back() {
+      s3.classList.remove("active");
+      s2.classList.add("active");
+    }
+
+    function restart() {
+      location.reload();
+    }
+  </script>
+
+</body>
+
+</html>
